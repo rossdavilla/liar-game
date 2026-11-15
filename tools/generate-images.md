@@ -16,10 +16,10 @@ The app looks for these five files. Until a file exists, its slot is hidden, so 
 | File | Where it appears | Subject |
 |---|---|---|
 | `images/hero.jpg` | Welcome screen | Confident performer with a theater mask, fingers crossed behind their back |
-| `images/truth.jpg` | Step 1 (the surprising truth) | Lightbulb with a surprised face popping out of a gift box |
-| `images/lie.jpg` | Step 2 (the dramatic lie) | Crossed fingers in front of a swirling, dramatic speech bubble |
+| `images/truth.jpg` | Spare, not shown (was step 1) | Lightbulb with a surprised face popping out of a gift box |
+| `images/lie.jpg` | Spare, not shown (was step 2) | Crossed fingers in front of a swirling, dramatic speech bubble |
 | `images/sealed.jpg` | Front of the "Tap to reveal" card | Envelope closed with a question-mark wax seal |
-| `images/stage.jpg` | Below the revealed statement | Microphone in a spotlight on a stage |
+| `images/stage.jpg` | Spare, not shown (was below the reveal) | Microphone in a spotlight on a stage |
 
 The app is golden yellow (`#F9DC5C`, `#FAE588`, `#FCEFB4`, `#FDF8E1`). The illustrations use the complementary blues and gray, on a plain pale-cream background (`#FDF8E1`) so they sit seamlessly inside the app's cream frames. That avoids depending on transparent PNGs.
 
