@@ -235,8 +235,13 @@
     border-radius: 999px;
     padding: 8px 22px;
     animation: pulse 1.8s ease-in-out infinite;
+    transition: opacity .2s ease, transform .2s ease;
   }
   @keyframes pulse { 50% { transform: scale(1.06); } }
+  .front .hint { transition: opacity .2s ease; }
+  /* clear the button off the card before it flips */
+  .card.opening .tap, .card.flipped .tap { animation: none; opacity: 0; transform: scale(.8); }
+  .card.opening .front .hint, .card.flipped .front .hint { opacity: 0; }
   .back {
     transform: rotateY(180deg);
     background: var(--cream);
@@ -406,8 +411,14 @@
     save();
     fields.a.value = fields.b.value = '';
     if (navigator.vibrate) navigator.vibrate(30);
-    setRevealed(true);
-    setTimeout(() => { const h = $('[data-screen="reveal"] .post h2'); if (h) h.focus({ preventScroll: true }); }, 50);
+    card.disabled = true;
+    card.classList.add('opening');
+    setTimeout(() => {
+      setRevealed(true);
+      card.classList.remove('opening');
+      const h = $('[data-screen="reveal"] .post h2');
+      if (h) h.focus({ preventScroll: true });
+    }, 220);
   }
 
   // wire up
