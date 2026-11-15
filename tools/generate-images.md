@@ -15,11 +15,11 @@ The app looks for these five files. Until a file exists, its slot is hidden, so 
 
 | File | Where it appears | Subject |
 |---|---|---|
-| `images/hero.png` | Welcome screen | Confident performer with a theater mask, fingers crossed behind their back |
-| `images/truth.png` | Step 1 (the surprising truth) | Lightbulb with a surprised face popping out of a gift box |
-| `images/lie.png` | Step 2 (the dramatic lie) | Crossed fingers in front of a swirling, dramatic speech bubble |
-| `images/sealed.png` | Front of the "Tap to reveal" card | Envelope closed with a question-mark wax seal |
-| `images/stage.png` | After the reveal, next to the "Sell it" tips | Microphone in a spotlight on a stage |
+| `images/hero.jpg` | Welcome screen | Confident performer with a theater mask, fingers crossed behind their back |
+| `images/truth.jpg` | Step 1 (the surprising truth) | Lightbulb with a surprised face popping out of a gift box |
+| `images/lie.jpg` | Step 2 (the dramatic lie) | Crossed fingers in front of a swirling, dramatic speech bubble |
+| `images/sealed.jpg` | Front of the "Tap to reveal" card | Envelope closed with a question-mark wax seal |
+| `images/stage.jpg` | Below the revealed statement | Microphone in a spotlight on a stage |
 
 The app is golden yellow (`#F9DC5C`, `#FAE588`, `#FCEFB4`, `#FDF8E1`). The illustrations use the complementary blues and gray, on a plain pale-cream background (`#FDF8E1`) so they sit seamlessly inside the app's cream frames. That avoids depending on transparent PNGs.
 
@@ -74,22 +74,15 @@ Send them in this order **in the same ChatGPT conversation**, so the style stays
 2. **Open ChatGPT in a new tab** (`tabs_context_mcp`, then `tabs_create_mcp`, then navigate to `https://chatgpt.com/`). Don't touch the user's other tabs.
    - If ChatGPT shows a sign-in page, stop and ask the user to sign in in that tab, then continue. Never type credentials.
    - Start a new chat. If a model or tool picker is visible, make sure image generation is available (the default model generates images).
-3. **Before downloading anything, ask the user once in chat** for permission to download the five PNGs from chatgpt.com into `~/Downloads`. Wait for a yes.
-4. **For each prompt, in order:**
+3. **Before downloading anything, ask the user once in chat** for permission to download the five PNGs from chatgpt.com. Wait for a yes. (Ross's Chrome saves downloads to `~/Desktop`, not `~/Downloads`.)
+4. **For each prompt, in order:** (ChatGPT's message box sends on Enter, so type each prompt as one paragraph.)
    1. Click the message box, type the prompt (for prompt 1, the shared style block followed by the Image 1 text), and send it.
    2. Wait for the image to finish. Generation takes about 30–90 seconds. Check with a screenshot roughly every 15 seconds, for up to 3 minutes.
    3. **Check the image** against the brief: square, cream background, only blues/grays/white/navy in the subject, no text (except the question mark on the seal), the subject well inside the edges. If it fails, send one follow-up asking for that specific fix (for example: "Same image, but remove the text and make the background flat #FDF8E1"). Accept the second try unless it is clearly worse.
-   4. **Download it:** hover over the image and click its download button (or open the image and use the download button there). Note the downloaded file name.
-5. **Move the files into the project** with Bash. Convert to PNG and cap the size at 1024px:
+5. **Download with named files.** Generated images are `blob:` URLs on `main img` elements (natural width > 300), in chat order. ChatGPT only keeps about four images loaded, so scroll up for older ones. With `javascript_tool`, fetch each image's `src` as a blob and click a temporary `<a download="liar-hero.png">` link (likewise `liar-truth`, `liar-lie`, `liar-sealed`, `liar-stage`).
+6. **Move them into the project as 768px JPEGs.** PNGs come out around 750 KB each, which is too heavy for phones; JPEGs are about 120 KB.
    ```bash
-   cd "/Users/rossavilla/GitHub/Liar Game" && mkdir -p images
-   # repeat for each file, newest download first; check names with: ls -t ~/Downloads | head
-   sips -s format png -Z 1024 "$HOME/Downloads/<downloaded file>" --out images/hero.png
+   cd "/Users/rossavilla/GitHub/Liar Game" && mkdir -p images && for n in hero truth lie sealed stage; do sips -s format jpeg -s formatOptions 82 -Z 768 ~/Desktop/liar-$n.png --out images/$n.jpg >/dev/null && rm ~/Desktop/liar-$n.png; done && ls -la images
    ```
-6. **Verify** the five files:
-   ```bash
-   cd "/Users/rossavilla/GitHub/Liar Game/images" && for f in hero truth lie sealed stage; do sips -g pixelWidth -g pixelHeight "$f.png" | tail -2 | tr '\n' ' '; echo " $f"; done
-   ```
-   Each should be square and at most 1024px. Each should be under ~1.5 MB; if one is larger, shrink it with `sips -Z 768 images/<name>.png`.
 7. **Look at them in the app.** Open `index.html` in the built-in browser at phone size (preset `mobile`), go through the welcome, both steps and the reveal card, and take screenshots. Check that each illustration fills its frame with no stray background edge.
 8. Tell the user which images were made, any that needed a retry, and anything that still looks off. Leave the ChatGPT tab open.

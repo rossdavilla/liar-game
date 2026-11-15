@@ -253,19 +253,6 @@
     overflow-wrap: anywhere;
   }
 
-  .tips {
-    margin: 0;
-    padding: 16px 18px 16px 38px;
-    background: var(--cream);
-    border: 2px solid var(--ink);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    display: grid;
-    gap: 6px;
-  }
-  .tips-title { font-family: var(--display); font-weight: 800; font-size: 20px; margin-left: -20px; }
-  .post-row { display: flex; gap: 16px; align-items: center; }
-  .post-row .tips { flex: 1; }
 
   @media (prefers-reduced-motion: reduce) {
     .screen, .tap, .shake { animation: none; }
@@ -278,7 +265,7 @@
 
   <!-- 1. Welcome -->
   <section class="screen" data-screen="welcome">
-    <figure class="art"><img src="images/hero.png" alt="" onerror="this.parentNode.hidden=true"></figure>
+    <figure class="art"><img src="images/hero.jpg" alt="" onerror="this.parentNode.hidden=true"></figure>
     <div class="title-block">
       <p class="kicker">Can you keep a straight face?</p>
       <h1 tabindex="-1">The Liar Game</h1>
@@ -297,7 +284,7 @@
   <!-- 2. Truth -->
   <section class="screen" data-screen="truth" hidden>
     <span class="pill">Step 1 of 2</span>
-    <figure class="art sm"><img src="images/truth.png" alt="" onerror="this.parentNode.hidden=true"></figure>
+    <figure class="art sm"><img src="images/truth.jpg" alt="" onerror="this.parentNode.hidden=true"></figure>
     <h2 tabindex="-1">Something true… but surprising</h2>
     <p class="lede">A real fact about you that people would never guess. One sentence is plenty.</p>
     <div class="field">
@@ -314,7 +301,7 @@
   <!-- 3. Lie -->
   <section class="screen" data-screen="lie" hidden>
     <span class="pill">Step 2 of 2</span>
-    <figure class="art sm"><img src="images/lie.png" alt="" onerror="this.parentNode.hidden=true"></figure>
+    <figure class="art sm"><img src="images/lie.jpg" alt="" onerror="this.parentNode.hidden=true"></figure>
     <h2 tabindex="-1">Now, a dramatic lie</h2>
     <p class="lede">Make it bold, but believable enough that you could sell it with a straight face.</p>
     <div class="field">
@@ -336,19 +323,18 @@
     </div>
     <div class="post" hidden>
       <h2 tabindex="-1">Showtime</h2>
-      <p class="lede" style="margin-top:10px">Present this as the truth. No one knows which one it is but you.</p>
+      <p class="lede" style="margin-top:10px">Present this to the group.</p>
     </div>
 
     <button class="card" id="card" aria-label="Tap to reveal what you'll present as the truth">
       <span class="card-inner">
         <span class="face front">
-          <span class="art"><img src="images/sealed.png" alt="" onerror="this.parentNode.hidden=true"></span>
+          <span class="art"><img src="images/sealed.jpg" alt="" onerror="this.parentNode.hidden=true"></span>
           <span class="seal-fallback" aria-hidden="true">?</span>
           <span class="tap">Tap to reveal</span>
           <span class="hint" style="color:var(--ink)">Make sure no one's peeking.</span>
         </span>
         <span class="face back">
-          <span class="pill">Convince them this is true</span>
           <span class="statement" id="statement"></span>
         </span>
       </span>
@@ -359,15 +345,7 @@
     </div>
 
     <div class="post" hidden>
-      <div class="post-row">
-        <figure class="art sm" style="width:min(30vw,112px)"><img src="images/stage.png" alt="" onerror="this.parentNode.hidden=true"></figure>
-        <ul class="tips">
-          <li class="tips-title" style="list-style:none">Sell it</li>
-          <li>Add one vivid detail.</li>
-          <li>Keep eye contact.</li>
-          <li>Don't over-explain.</li>
-        </ul>
-      </div>
+      <figure class="art sm" style="display:block;margin:0 auto"><img src="images/stage.jpg" alt="" onerror="this.parentNode.hidden=true"></figure>
       <button class="link" id="restart" style="display:block;margin:18px auto 0">Start over</button>
     </div>
   </section>
